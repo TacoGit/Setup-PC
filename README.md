@@ -1,6 +1,5 @@
 # Setup-PC
-Another PC-Setup tool, this one will install apps for you.
-
+Another PC-Setup tool
 <br>
 
 ---
