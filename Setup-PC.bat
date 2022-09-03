@@ -44,7 +44,7 @@ echo                      %Ba%%%                     %ESC%[1mMain Menu%ESC%[0m  
 echo            ╚═════════════════════════════════════════════════════════════════════════════════════╝
                                                       echo.                                                                          
 echo                                           %ESC%[91m[%ESC%[0m this will install: %ESC%[91m]%ESC%[0m
-echo         chocolatey, steam, chrome, epic games, vcredist-all, directx, 7z, paint.net, sharex, rainmeter
+echo      chocolatey, steam, chrome, epic games, vcredist-all, directx, 7z, paint.net, sharex, rainmeter, htop,
 echo      visual studio code, powershell tweaks, windows terminal, ohmyposh, fonts, curl and a couple pc tweaks
 echo.                                                                                   
 echo                                 make sure to run this file as administrator   
@@ -168,10 +168,24 @@ echo - visual studio code
 echo Searching for visual studio code files
 if exist "C:\Users\" + %username% + "\AppData\Local\Programs\Microsoft VS Code\Code.exe" (
     echo - visual studio code found, skipping
-    goto powershell
+    goto htop
 ) else (
     echo - visual studio code not found, installing
     choco install vscode -y
+    goto htop
+)
+
+:htop
+echo - htop
+echo Searching for htop.exe in System32
+if exist "C:\Windows\System32\htop.exe" (
+    echo - htop found, skipping
+    goto powershell
+) else (
+    echo - htop not found, installing
+    powershell -Command "Invoke-WebRequest https://github.com/gsass1/NTop/releases/download/v0.3.4/ntop.exe -OutFile htop.exe"
+    echo moving htop to system32
+    move "htop.exe" "C:\Windows\System32"
     goto powershell
 )
 
